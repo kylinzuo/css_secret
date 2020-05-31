@@ -8,27 +8,76 @@ body {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+  background: #a78282;
 }
 
 .wrap {
   border: 1px solid #EAECEF;
   border-radius: 4px;
+  box-sizing: border-box;
   margin: 24px;
   width: 200px;
   height: 200px;
 }
 
-.wrap:nth-child(1) {
+.ky-center-box {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: green;
+  & > div {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/*
+ * 2.1 半透明边框
+ **/
+// 解决方案：background-clip: padding-box;
+.wrap:nth-child(1) {
   & > div {
     background: white;
     background-clip: padding-box;
     border: 10px solid hsla(0,0%,100%,.5);
-    // border: 10px solid rgba(255, 255, 255, 0.5);
-    width: 100px;
-    height: 100px;
   }
+}
+
+/*
+ * 2.2 多重边框
+ **/
+ // 解决方案：box-shadow;
+.wrap:nth-child(2) {
+  & > div {
+    background: yellowgreen;
+    box-shadow: 0 0 0 10px #655, 0 0 0 15px deeppink, 0 2px 5px 15px rgba(0, 0, 0, 0.6);
+  }
+}
+ // 解决方案：outline;
+.wrap:nth-child(3) {
+  & > div {
+    background: yellowgreen;
+    border: 10px solid #655;
+    outline: 2px dotted deeppink;
+    outline-offset: -5px;
+  }
+}
+
+/*
+ * 2.3灵活的背景定位
+ **/
+// 解决方案：background-position 的扩展语法方案
+.wrap:nth-child(4) {
+  background: url('/static/warn.svg') no-repeat bottom right #58a;
+  background-position: right 20px bottom 10px;
+}
+// 解决方案：background-origin 方案
+.wrap:nth-child(5) {
+  background: url('/static/warn.svg') no-repeat bottom right #58a;
+  padding: 10px;
+  background-origin: content-box;
+}
+// 解决方案：calc() 方案
+.wrap:nth-child(6) {
+  background: url('/static/warn.svg') no-repeat bottom right #58a;
+  background-position: calc(100% - 20px) calc(100% - 10px);
 }
